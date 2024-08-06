@@ -1,13 +1,13 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Tarea {
+export class Task {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  titulo: string;
+  title: string;
 
-  @Column({ default: 'pending' })
-  estado: string;
+  @Column()
+  status: string;
 }
