@@ -11,4 +11,7 @@ export class User {
 
   @Column()
   mail: string;
+
+  @Column()
+  active: boolean;
 }
