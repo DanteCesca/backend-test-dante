@@ -22,7 +22,7 @@ export class TasksService {
   }
 
   async findOne(id: number): Promise<Task> {
-    const task = await this.tasksRepository.findOne(id);
+    const task = await this.tasksRepository.findOneBy({id});
     if (!task) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
@@ -31,7 +31,7 @@ export class TasksService {
 
   async update(id: number, updateTaskDto: UpdateTaskDto): Promise<Task> {
     await this.tasksRepository.update(id, updateTaskDto);
-    const updatedTask = await this.tasksRepository.findOne(id);
+    const updatedTask = await this.tasksRepository.findOneBy({id});
     if (!updatedTask) {
       throw new NotFoundException(`Task with ID ${id} not found`);
     }
