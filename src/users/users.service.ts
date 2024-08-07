@@ -9,13 +9,17 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository:Repository<User>
+    private readonly usersRepository:Repository<User>
   ){
 
   }
 
   async create(createUserDto: CreateUserDto) {
     return await this.usersRepository.save(createUserDto);
+  }
+
+  async findOneByEmail(email: string) {
+    return this.usersRepository.findOneBy({ email })
   }
 
   async findAll() {

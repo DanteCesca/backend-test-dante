@@ -10,7 +10,10 @@ export class User {
   name: string;
 
   @Column()
-  mail: string;
+  email: string;
+
+  @Column()
+  password: string;
 
   @Column()
   active: boolean;
