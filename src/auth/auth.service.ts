@@ -7,10 +7,10 @@ import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-  constructor(private jwtService: JwtService, usersService: UsersService ) {}
+  constructor(private jwtService: JwtService, readonly usersService: UsersService ) {}
 
   async register ({ name, email, password}: RegisterDto) {
-    const user = await this.usersService.findoneByEmail(email)
+    const user = await this.usersService.findOneByEmail(email)
     
     if (user) {
       throw new BadRequestException('ya existe un usuario con esos datos');
@@ -22,17 +22,9 @@ export class AuthService {
       password: bcrypt.hash(password, 10)
     });
   }
-
-  async validateUser(email: string, password: string): Promise<any> {o
-    const user = { email, password: await bcrypt.hash('password', 10) };
-    if (email === user.email && await bcrypt.compare(password, user.password)) {
-      return user;
-    }
-    return null;
-  }
-
+  
   async login({email, password}: LoginDto) {
-    const user = await this.usersService.findoneByEmail(email);
+    const user = await this.usersService.findOneByEmail(email);
     if(!user) {
       throw new UnauthorizedException('el email o la contraseña no son correctos');
     }
